@@ -1,0 +1,57 @@
+# Dependencies
+node_modules/
+.venv/
+venv/
+env/
+
+# Build outputs
+dist/
+build/
+out/
+*.egg-info/
+
+# Caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+.coverage
+htmlcov/
+
+# Environment files and secrets (keep only the .example templates)
+.env
+.env.*
+!.env.example
+backend/.env
+*.pem
+*.key
+*.p12
+secrets.*
+credentials.json
+
+# Local data — personal data, never committed
+*.db
+*.sqlite
+*.sqlite3
+backend/backups/
+backend/backups-e2e/
+backend/uploads-e2e/
+backend/private_uploads/
+
+# Deployment / tool state
+.vercel
+.claude/settings.local.json
+.agents/
+skills-lock.json
+
+# Logs, OS and editor files
+*.log
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
+*.swp
+*~

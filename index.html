@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#F8F7F2">
+<!-- Every script and stylesheet below is versioned, but this page is not:
+     without this a browser keeps serving an old index.html and with it the
+     old ?v= numbers, so changes appear only after a hard reload. -->
+<meta http-equiv="Cache-Control" content="no-store">
+<meta name="description" content="SMIVAI — Care Closer to You. Conversation, brain games, memories, reminders and caregiver support for older adults.">
+<title>SMIVAI — Care Closer to You</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='17' cy='11' r='5.2' fill='%235B82C4'/><circle cx='31' cy='11' r='5.2' fill='%234F9D91'/><path d='M24 43C14 36 6 29 6 21a7 7 0 0 1 11-5.7L24 21l7-5.7A7 7 0 0 1 42 21c0 8-8 15-18 22Z' fill='%235B82C4'/><path d='M24 43c7-5 18-13 18-22a7 7 0 0 0-11-5.7L24 21Z' fill='%234F9D91'/></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/theme.css?v=112">
+<link rel="stylesheet" href="css/components.css?v=112">
+<link rel="stylesheet" href="css/patient.css?v=112">
+<link rel="stylesheet" href="css/dashboard.css?v=112">
+<link rel="stylesheet" href="css/games.css?v=112">
+<link rel="stylesheet" href="css/language.css?v=112">
+</head>
+<body class="no-shell">
+  <div id="shell">
+    <!-- Soft background layer: colour wash + a few of the app's own 3D
+         objects, themed per screen. Decorative, behind everything. -->
+    <div id="decor" class="app-decor" aria-hidden="true" hidden></div>
+    <aside id="sidebar" class="sidebar" hidden aria-label="SMIVAI navigation"></aside>
+    <div class="shell-main">
+      <header id="topbar" class="topbar" hidden></header>
+      <main id="app" class="app-main" tabindex="-1"></main>
+    </div>
+    <nav id="bottomnav" class="bottomnav" hidden aria-label="Main navigation"></nav>
+  </div>
+  <div id="modal-root"></div>
+  <div id="toast-root" class="toast-root" aria-live="polite"></div>
+
+  <!-- Core -->
+  <script src="js/core/utils.js?v=112"></script>
+  <script src="js/core/i18n.js?v=112"></script>
+  <script src="js/core/db.js?v=112"></script>
+  <script src="js/core/models.js?v=112"></script>
+  <script src="js/core/content.js?v=112"></script>
+  <script src="js/core/pictures.js?v=112"></script>
+  <script src="js/core/adaptive.js?v=112"></script>
+  <script src="js/core/scoring.js?v=112"></script>
+  <script src="js/core/reminders.js?v=112"></script>
+  <script src="js/core/sync.js?v=112"></script>
+  <script src="js/core/langservice.js?v=112"></script>
+  <script src="js/core/voice.js?v=112"></script>
+  <script src="js/core/wakeword.js?v=112"></script>
+  <script src="js/core/media.js?v=112"></script>
+  <script src="js/core/wellness.js?v=112"></script>
+  <script src="js/core/content_daily.js?v=112"></script>
+  <script src="js/core/services.js?v=112"></script>
+  <script src="js/core/location.js?v=112"></script>
+  <script src="js/core/doctors.js?v=112"></script>
+  <script src="js/core/charity_api.js?v=112"></script>
+  <script src="js/core/plans.js?v=112"></script>
+  <script src="js/core/auth.js?v=112"></script>
+  <script src="js/core/privacy.js?v=112"></script>
+  <script src="js/core/langdetect.js?v=112"></script>
+  <script src="js/core/companion_i18n.js?v=112"></script>
+  <script src="js/core/companion.js?v=112"></script>
+  <script src="js/core/seed.js?v=112"></script>
+  <script src="js/core/seed_v2.js?v=112"></script>
+  <script src="js/core/state.js?v=112"></script>
+  <!-- UI kit -->
+  <script src="js/ui/icons.js?v=112"></script>
+  <script src="js/ui/art.js?v=112"></script>
+  <script src="js/ui/components.js?v=112"></script>
+  <script src="js/ui/charts.js?v=112"></script>
+  <script src="js/ui/premium.js?v=112"></script>
+  <script src="js/ui/gameshell.js?v=112"></script>
+  <script src="js/ui/shell.js?v=112"></script>
+  <!-- Brain games -->
+  <script src="js/games/picture_matching.js?v=112"></script>
+  <script src="js/games/memory_pairs.js?v=112"></script>
+  <script src="js/games/picture_bingo.js?v=112"></script>
+  <script src="js/games/category_sorting.js?v=112"></script>
+  <script src="js/games/jigsaw.js?v=112"></script>
+  <script src="js/games/my_memories.js?v=112"></script>
+  <script src="js/games/pattern.js?v=112"></script>
+  <script src="js/games/word_hustle.js?v=112"></script>
+  <!-- Screens -->
+  <script src="js/screens/landing.js?v=112"></script>
+  <script src="js/screens/login.js?v=112"></script>
+  <script src="js/screens/patient.js?v=112"></script>
+  <script src="js/screens/talk.js?v=112"></script>
+  <script src="js/screens/memories.js?v=112"></script>
+  <script src="js/screens/care.js?v=112"></script>
+  <script src="js/screens/charity.js?v=112"></script>
+  <script src="js/screens/donor.js?v=112"></script>
+  <script src="js/screens/settings.js?v=112"></script>
+  <script src="js/screens/caregiver.js?v=112"></script>
+  <script src="js/screens/doctor.js?v=112"></script>
+  <script src="js/screens/language_console.js?v=112"></script>
+  <!-- Boot -->
+  <script src="js/core/router.js?v=112"></script>
+  <script src="js/app.js?v=112"></script>
+</body>
+</html>

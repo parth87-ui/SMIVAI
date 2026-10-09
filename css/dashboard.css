@@ -1,0 +1,141 @@
+/* ============================================================
+   SMIVAI — Caregiver & Doctor dashboards
+   Denser than the patient app, never cramped and never tiny.
+   ============================================================ */
+
+.dash{ width:100%; max-width:var(--content-max); margin:0 auto; }
+
+/* ---------- Dashboard header ---------- */
+.dash-head{
+  display:flex; align-items:flex-end; justify-content:space-between;
+  gap:var(--s3); flex-wrap:wrap; margin-bottom:var(--s3);
+}
+.dash-head h1{ font-size:var(--fs-h1); }
+.dash-head .dh-sub{ font-size:.9375rem; color:var(--muted); margin-top:.375rem; }
+
+/* Role nav: the sidebar already carries it on desktop, so it only
+   appears on narrow screens as a scrolling strip. */
+.rolenav{
+  display:flex; gap:.375rem; padding:.375rem;
+  background:var(--surface-sunk); border:1px solid var(--line-soft);
+  border-radius:var(--r-pill); overflow-x:auto; max-width:100%;
+}
+.rolenav::-webkit-scrollbar{ height:0; }
+.rolenav button{
+  border:0; background:transparent; cursor:pointer;
+  min-height:2.75rem; padding:0 1.125rem; border-radius:var(--r-pill);
+  font-size:.9375rem; font-weight:700; color:var(--muted); white-space:nowrap;
+  display:inline-flex; align-items:center; gap:.5rem;
+  transition:background var(--dur-2) var(--ease), color var(--dur-2);
+}
+.rolenav button[aria-current="page"]{ background:var(--surface); color:var(--primary-ink); box-shadow:var(--sh-1); }
+@media (min-width:761px){ body.has-shell .rolenav{ display:none; } }
+
+/* ---------- Patient selector ---------- */
+.patient-switch{
+  display:flex; align-items:center; gap:.875rem; flex-wrap:wrap;
+  background:var(--surface); border:1px solid var(--line-soft);
+  border-radius:var(--r-xl); padding:.875rem 1.125rem; box-shadow:var(--sh-1), var(--hi);
+  margin-bottom:var(--s3);
+}
+.patient-switch .ps-avatar{
+  width:3.25rem; height:3.25rem; border-radius:50%; flex:none;
+  background:linear-gradient(145deg,var(--blue-100),var(--lav-100)); color:var(--primary-ink);
+  display:grid; place-items:center; font-weight:800; font-size:1.125rem;
+}
+.patient-switch .ps-name{ font-size:1.1875rem; font-weight:700; }
+.patient-switch .ps-meta{ font-size:.875rem; color:var(--muted); }
+.patient-switch .ps-actions{ margin-left:auto; display:flex; gap:.625rem; align-items:center; flex-wrap:wrap; }
+@media (max-width:640px){ .patient-switch .ps-actions{ margin-left:0; width:100%; } .patient-switch .ps-actions .select{ flex:1; } }
+
+/* ---------- Stat grid ---------- */
+.stat-grid{ display:grid; gap:var(--s2); grid-template-columns:repeat(auto-fit,minmax(13rem,1fr)); }
+.stat{
+  background:var(--surface); border:1px solid var(--line-soft);
+  border-radius:var(--r-xl); padding:var(--s3); box-shadow:var(--sh-1), var(--hi);
+  display:flex; flex-direction:column; gap:.375rem; min-height:8rem;
+}
+.stat .st-label{ font-size:.75rem; text-transform:uppercase; letter-spacing:.06em; font-weight:800; color:var(--muted); }
+.stat .st-value{ font-size:2.125rem; font-weight:800; letter-spacing:-.02em; line-height:1.05; }
+.stat .st-value small{ font-size:1rem; font-weight:700; color:var(--muted); margin-left:.125rem; }
+.stat .st-foot{ font-size:.875rem; color:var(--muted); margin-top:auto; }
+
+/* ---------- Panel grids ---------- */
+.grid-2{ display:grid; gap:var(--s2); grid-template-columns:repeat(auto-fit,minmax(21rem,1fr)); }
+.grid-3{ display:grid; gap:var(--s2); grid-template-columns:repeat(auto-fit,minmax(17rem,1fr)); }
+.grid-sidebar{ display:grid; gap:var(--s2); grid-template-columns:minmax(0,2fr) minmax(19rem,1fr); }
+@media (max-width:900px){ .grid-sidebar{ grid-template-columns:1fr; } }
+
+.section{ margin-top:var(--s3); }
+.section-title{ display:flex; align-items:center; gap:.625rem; margin-bottom:var(--s2); flex-wrap:wrap; }
+.section-title h2{ font-size:var(--fs-h3); }
+.section-title .st-actions{ margin-left:auto; display:flex; gap:.625rem; flex-wrap:wrap; }
+
+/* ---------- Alerts ---------- */
+.alert{
+  display:flex; gap:.875rem; align-items:flex-start;
+  border-radius:var(--r-lg); padding:1rem 1.125rem;
+  background:var(--warning-50); border:1px solid #F2DDB5;
+}
+.alert + .alert{ margin-top:.625rem; }
+.alert .al-ico{ font-size:1.375rem; flex:none; line-height:1.2; color:inherit; }
+.alert .al-ico svg{ width:1.5rem; height:1.5rem; }
+.alert .al-title{ font-weight:700; font-size:1rem; color:var(--warning-ink); }
+.alert .al-body{ font-size:.9375rem; color:#8A5D14; margin-top:.2rem; line-height:1.45; }
+.alert.info{ background:var(--blue-50); border-color:var(--blue-100); }
+.alert.info .al-title{ color:var(--primary-ink); }
+.alert.info .al-body{ color:var(--text-2); }
+.alert.attention{ background:var(--emergency-50); border-color:#F7CDD1; }
+.alert.attention .al-title{ color:var(--emergency-ink); }
+.alert.attention .al-body{ color:#A7584F; }
+
+/* ---------- Reminder management rows ---------- */
+.rem-row{ display:flex; align-items:center; gap:.875rem; padding:.875rem 0; border-bottom:1px solid var(--line-soft); }
+.rem-row:last-child{ border-bottom:0; }
+.rem-row .rr-ico{ width:2.875rem; height:2.875rem; border-radius:.875rem; flex:none; background:var(--surface-sunk); display:grid; place-items:center; font-size:1.3rem; }
+.rem-row .rr-title{ font-weight:700; font-size:1rem; }
+.rem-row .rr-meta{ font-size:.875rem; color:var(--muted); margin-top:.125rem; }
+.rem-row .rr-actions{ margin-left:auto; display:flex; gap:.5rem; flex-wrap:wrap; }
+.rem-row.paused{ opacity:.6; }
+@media (max-width:640px){ .rem-row{ flex-wrap:wrap; } .rem-row .rr-actions{ margin-left:3.75rem; width:100%; } }
+
+/* ---------- Suggestion chips ---------- */
+.suggest-wrap{ display:flex; gap:.625rem; flex-wrap:wrap; }
+.suggest{
+  display:inline-flex; align-items:center; gap:.625rem;
+  border:1px dashed var(--blue-200); background:var(--blue-50);
+  color:var(--primary-ink); border-radius:var(--r-pill);
+  padding:0 1.125rem; min-height:3rem; font-weight:700; font-size:.9375rem; cursor:pointer;
+  transition:background var(--dur-2) var(--ease);
+}
+.suggest:hover{ background:var(--blue-100); border-style:solid; }
+
+/* ---------- Care notes ---------- */
+.note{ border-left:4px solid var(--blue-200); padding:.25rem 0 .25rem 1rem; margin-bottom:var(--s2); }
+.note:last-child{ margin-bottom:0; }
+.note .n-meta{ font-size:.75rem; color:var(--muted); font-weight:800; text-transform:uppercase; letter-spacing:.04em; }
+.note .n-body{ font-size:1rem; margin-top:.3rem; line-height:1.5; }
+
+/* ---------- Legend / sync ---------- */
+.legend{ display:flex; gap:1rem; flex-wrap:wrap; font-size:.8125rem; color:var(--muted); font-weight:700; }
+.legend span{ display:inline-flex; align-items:center; gap:.45rem; }
+.legend i{ width:.7rem; height:.7rem; border-radius:.2rem; display:inline-block; }
+.sync-row{ display:flex; align-items:center; justify-content:space-between; gap:.75rem; padding:.625rem 0; border-bottom:1px solid var(--line-soft); font-size:.9375rem; }
+.sync-row:last-child{ border-bottom:0; }
+.sync-row b{ font-weight:800; }
+
+/* ---------- Mood strip ---------- */
+.mood-strip{ display:flex; gap:.5rem; flex-wrap:wrap; }
+.mood-strip .ms-day{
+  display:flex; flex-direction:column; align-items:center; gap:.25rem;
+  padding:.5rem .625rem; border-radius:var(--r-md); background:var(--surface-sunk); min-width:3.25rem;
+}
+.mood-strip .ms-face{ font-size:1.375rem; }
+.mood-strip .ms-lab{ font-size:.6875rem; font-weight:700; color:var(--muted); }
+
+/* ---------- Memory bank (caregiver view) ---------- */
+.mem-cat-head{ display:flex; align-items:center; gap:.75rem; margin:var(--s4) 0 var(--s2); }
+.mem-cat-head .mch-ico{ font-size:1.625rem; }
+.mem-cat-head h3{ font-size:var(--fs-h3); }
+.cg-thumb{ border-radius:var(--r-md); overflow:hidden; margin-bottom:.75rem; }
+.cg-thumb img{ width:100%; height:8rem; object-fit:cover; display:block; background:var(--surface-sunk); }

@@ -1,0 +1,167 @@
+/* ============================================================
+   SMIVAI — language selection, capability reporting, assistant
+   ============================================================ */
+
+/* ---------- Language picker ---------- */
+.lang-group + .lang-group{ margin-top:var(--s3); }
+.lang-group-head{
+  font-size:13px; font-weight:800; letter-spacing:.05em; text-transform:uppercase;
+  color:var(--muted); margin-bottom:12px;
+}
+.lang-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:12px; }
+body.role-patient .lang-grid{ grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:14px; }
+
+.lang-card{
+  display:flex; align-items:center; gap:14px;
+  min-height:82px; padding:14px 16px;
+  border-radius:var(--r-md); border:2px solid var(--divider);
+  background:var(--card); cursor:pointer; text-align:left;
+  font-family:inherit; color:var(--text);
+  transition:all .16s var(--ease);
+}
+.lang-card:hover{ border-color:var(--sage-deep); background:var(--green-soft); }
+.lang-card[aria-pressed="true"]{ border-color:var(--green); background:var(--sage); }
+.lang-card .lc-native{ font-size:21px; font-weight:800; line-height:1.25; }
+.lang-card .lc-name{ font-size:14px; color:var(--muted); margin-top:2px; }
+.lang-card .lc-body{ flex:1; min-width:0; }
+.lang-card .lc-check{ font-size:20px; color:var(--green); flex:none; opacity:0; }
+.lang-card[aria-pressed="true"] .lc-check{ opacity:1; }
+body.role-patient .lang-card{ min-height:96px; padding:16px 18px; }
+body.role-patient .lang-card .lc-native{ font-size:24px; }
+body.role-patient .lang-card .lc-name{ font-size:16px; }
+
+/* Capability dots on a language card */
+.lc-caps{ display:flex; gap:6px; margin-top:8px; flex-wrap:wrap; }
+.cap-dot{
+  display:inline-flex; align-items:center; gap:4px;
+  font-size:11px; font-weight:800; letter-spacing:.02em;
+  color:var(--muted); text-transform:uppercase;
+}
+.cap-dot i{ width:8px; height:8px; border-radius:50%; background:var(--divider); display:inline-block; }
+.cap-dot.on i{ background:var(--success); }
+.cap-dot.partial i{ background:var(--amber); }
+.cap-dot.off i{ background:var(--error); }
+
+/* ---------- Capability matrix (caregiver) ---------- */
+.cap-table td.state{ white-space:nowrap; }
+.cap-state{
+  display:inline-flex; align-items:center; gap:7px;
+  font-size:13px; font-weight:700;
+}
+.cap-state i{ width:9px; height:9px; border-radius:50%; display:inline-block; flex:none; }
+.cap-state.available i{ background:var(--success); }
+.cap-state.available{ color:var(--success); }
+.cap-state.partial i{ background:var(--amber); }
+.cap-state.partial{ color:var(--warning); }
+.cap-state.unavailable i{ background:var(--error); }
+.cap-state.unavailable{ color:var(--error); }
+.cap-state.none i{ background:var(--divider); }
+
+/* ---------- Coverage bar ---------- */
+.cov-bar{
+  display:flex; height:14px; border-radius:var(--r-pill);
+  overflow:hidden; background:var(--ivory-sunk); border:1px solid var(--divider);
+}
+.cov-bar span{ display:block; height:100%; }
+.cov-bar .cov-bundled{ background:var(--green); }
+.cov-bar .cov-machine{ background:var(--amber); }
+.cov-legend{ display:flex; gap:16px; flex-wrap:wrap; margin-top:10px; font-size:13px; color:var(--muted); font-weight:700; }
+.cov-legend span{ display:inline-flex; align-items:center; gap:7px; }
+.cov-legend i{ width:10px; height:10px; border-radius:3px; display:inline-block; }
+
+/* ---------- Language chip in the top bar ---------- */
+.lang-pill{
+  display:inline-flex; align-items:center; gap:8px;
+  height:42px; padding:0 14px; border-radius:var(--r-pill);
+  background:var(--card); border:1px solid var(--divider);
+  font-family:inherit; font-size:14px; font-weight:800; color:var(--text);
+  cursor:pointer; white-space:nowrap;
+  transition:background .16s var(--ease), border-color .16s;
+}
+.lang-pill:hover{ background:var(--green-soft); border-color:var(--sage-deep); }
+body.role-patient .lang-pill{ height:48px; font-size:15px; padding:0 18px; }
+@media (max-width:430px){
+  .lang-pill{ padding:0 12px; }
+  .lang-pill .lp-name{ display:none; }
+}
+
+/* ---------- Assistant ---------- */
+.asst-stage{
+  display:flex; flex-direction:column; align-items:center; gap:16px;
+  padding:8px 0 22px;
+}
+.asst-mic{
+  width:104px; height:104px; border-radius:50%;
+  border:2px solid var(--sage-deep); background:var(--sage);
+  font-size:42px; cursor:pointer; display:grid; place-items:center;
+  transition:transform .16s var(--ease), background .2s var(--ease), box-shadow .2s;
+}
+.asst-mic:hover{ background:var(--sage-deep); }
+.asst-mic[disabled]{ opacity:.4; cursor:default; }
+.asst-mic.is-live{
+  background:var(--green); border-color:var(--green); color:#fff;
+  box-shadow:0 0 0 0 rgba(47,111,89,.45);
+  animation:mic-pulse 1.6s infinite;
+}
+@keyframes mic-pulse{
+  0%{ box-shadow:0 0 0 0 rgba(47,111,89,.4); }
+  70%{ box-shadow:0 0 0 22px rgba(47,111,89,0); }
+  100%{ box-shadow:0 0 0 0 rgba(47,111,89,0); }
+}
+.asst-state{ font-size:18px; font-weight:700; color:var(--muted); text-align:center; min-height:26px; }
+
+.asst-thread{ display:flex; flex-direction:column; gap:12px; margin-bottom:22px; }
+.asst-thread:empty{ display:none; }
+.asst-line{ display:flex; flex-direction:column; gap:4px; max-width:88%; }
+.asst-line.user{ align-self:flex-end; align-items:flex-end; }
+.asst-line.smivai{ align-self:flex-start; }
+.asst-bubble{
+  padding:13px 17px; border-radius:var(--r-md); font-size:17px; line-height:1.45;
+  background:var(--ivory-sunk); border:1px solid var(--divider);
+}
+.asst-line.user .asst-bubble{ background:var(--sage); border-color:var(--sage-deep); color:var(--green-dark); }
+.asst-line.smivai .asst-bubble{ background:var(--card); }
+.asst-sub{ font-size:12px; font-weight:700; color:var(--muted); letter-spacing:.02em; }
+
+.asst-suggest .suggest{ height:auto; min-height:46px; padding:10px 16px; white-space:normal; text-align:left; }
+
+/* ---------- Ask SMIVAI floating entry (patient) ---------- */
+.ask-fab{
+  position:fixed; right:20px; z-index:65;
+  bottom:calc(var(--bottomnav-h) + 20px);
+  display:inline-flex; align-items:center; gap:10px;
+  height:64px; padding:0 24px; border-radius:var(--r-pill);
+  background:var(--green); color:#fff; border:0;
+  font-family:inherit; font-size:18px; font-weight:800;
+  cursor:pointer; box-shadow:var(--sh-3);
+  transition:background .18s var(--ease), transform .14s var(--ease);
+}
+.ask-fab:hover{ background:var(--green-dark); }
+.ask-fab:active{ transform:translateY(1px); }
+.ask-fab .emoji{ font-size:24px; }
+@media (max-width:430px){
+  .ask-fab{ right:16px; padding:0 20px; height:60px; font-size:17px; }
+}
+
+/* ---------- Provenance markers ---------- */
+.prov{
+  display:inline-flex; align-items:center; gap:5px;
+  font-size:11px; font-weight:800; letter-spacing:.04em; text-transform:uppercase;
+  padding:2px 8px; border-radius:var(--r-pill); white-space:nowrap;
+  border:1px solid var(--divider); background:var(--ivory-sunk); color:var(--muted);
+}
+.prov.seed{ background:var(--amber-soft); border-color:#F0DFC4; color:#8A5A1E; }
+.prov.machine{ background:var(--green-soft); border-color:var(--sage-deep); color:var(--green-dark); }
+.prov.missing{ background:var(--coral-soft); border-color:#EED8D5; color:#9A4A42; }
+
+/* ---------- Onboarding ---------- */
+.onboard{
+  min-height:100vh; display:flex; align-items:center; justify-content:center;
+  padding:48px 24px 80px;
+}
+.onboard-inner{ width:100%; max-width:760px; }
+.onboard h1{ font-size:32px; margin-bottom:10px; }
+.onboard .ob-sub{ font-size:19px; color:var(--muted); margin-bottom:var(--s4); }
+.onboard-steps{ display:flex; gap:8px; margin-bottom:var(--s4); }
+.onboard-steps i{ height:5px; flex:1; border-radius:3px; background:var(--divider); display:block; }
+.onboard-steps i.on{ background:var(--green); }

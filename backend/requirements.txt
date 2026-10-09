@@ -1,0 +1,13 @@
+fastapi>=0.111
+uvicorn[standard]>=0.30
+SQLAlchemy>=2.0
+pydantic>=2.7
+psycopg[binary]>=3.1
+httpx>=0.27
+# Rasch ability estimation (app/scoring.py)
+numpy>=1.26
+scipy>=1.11
+# Enables POST /ai/chat (HUN's advanced conversations). Without it — or
+# without ANTHROPIC_API_KEY — the endpoint answers 503 and the device uses
+# its on-device companion.
+anthropic
