@@ -1,0 +1,44 @@
+# Render Blueprint — SMIVAI API (backend/) + PostgreSQL.
+# Values marked `sync: false` are entered in the Render dashboard, never here.
+services:
+  - type: web
+    name: smivai-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SMIVAI_DATABASE_URL
+        fromDatabase:
+          name: smivai-db
+          property: connectionString
+      - key: SMIVAI_REQUIRE_DATABASE        # never fall back to a throwaway SQLite file
+        value: "1"
+      - key: SMIVAI_AUTH_SECRET             # signs session tokens; keeps sign-ins across restarts
+        generateValue: true
+      - key: SMIVAI_ID_SALT                 # must equal the device salt in js/core/auth.js
+        value: smivai-device-v1
+      - key: SMIVAI_CORS_ORIGINS            # e.g. https://smivai.vercel.app (comma-separated, no trailing slash)
+        sync: false
+      - key: SMIVAI_CORS_ORIGIN_REGEX       # optional, for Vercel preview URLs
+        sync: false
+      - key: SMIVAI_DEMO_OTP                # "1" shows sign-in codes on screen (labelled Demo mode); no SMS provider exists
+        sync: false
+      - key: SMIVAI_CHARITY_INCOME_LIMIT_RUPEES
+        value: "150000"
+      - key: RAZORPAY_KEY_ID                # rzp_test_… only; live keys are refused
+        sync: false
+      - key: RAZORPAY_KEY_SECRET
+        sync: false
+      - key: RAZORPAY_WEBHOOK_SECRET
+        sync: false
+      - key: ANTHROPIC_API_KEY              # optional: HUN's advanced conversations
+        sync: false
+
+databases:
+  - name: smivai-db
+    databaseName: smivai
+    plan: free

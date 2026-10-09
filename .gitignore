@@ -55,3 +55,6 @@ desktop.ini
 .vscode/
 *.swp
 *~
+
+# Vercel build output (scripts/build.js)
+public/

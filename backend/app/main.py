@@ -58,6 +58,8 @@ CORS_ORIGINS = [o.strip() for o in os.getenv(
 app.add_middleware(
     CORSMiddleware,
     allow_origins=CORS_ORIGINS,
+    # Optional, e.g. ^https://smivai(-[a-z0-9-]+)?\.vercel\.app$ for Vercel preview deployments.
+    allow_origin_regex=os.getenv("SMIVAI_CORS_ORIGIN_REGEX") or None,
     allow_methods=["GET", "POST", "PATCH", "DELETE"],
     # The X-SMIVAI-* pair only matters when SMIVAI_ALLOW_HEADER_AUTH=1 (deps.py).
     allow_headers=["Authorization", "Content-Type", "X-SMIVAI-Role", "X-SMIVAI-Actor"],

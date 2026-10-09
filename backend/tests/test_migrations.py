@@ -67,3 +67,18 @@ def test_fresh_database_records_versions_without_altering_or_backing_up(tmp_path
     engine = create_engine(f"sqlite:///{db.as_posix()}")
     assert migrations.run(engine) == [1, 2, 3, 4]
     assert not (tmp_path / "backups").exists()
+
+
+def test_hosted_postgres_urls_use_the_psycopg_driver():
+    from app.database import normalise_url
+    assert normalise_url("postgres://u:p@h:5432/db") == "postgresql+psycopg://u:p@h:5432/db"
+    assert normalise_url("postgresql://u:p@h/db") == "postgresql+psycopg://u:p@h/db"
+    assert normalise_url("postgresql+psycopg://u@h/db") == "postgresql+psycopg://u@h/db"
+    assert normalise_url("sqlite:///x.db") == "sqlite:///x.db"
+
+
+def test_cors_allows_a_configured_origin_only(client):
+    ok = client.options("/health", headers={"Origin": "http://localhost:8123", "Access-Control-Request-Method": "GET"})
+    bad = client.options("/health", headers={"Origin": "https://evil.example", "Access-Control-Request-Method": "GET"})
+    assert ok.headers.get("access-control-allow-origin") == "http://localhost:8123"
+    assert "access-control-allow-origin" not in bad.headers

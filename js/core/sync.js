@@ -22,8 +22,10 @@
   'use strict';
   var S = global.S;
 
+  /* Build-time settings (js/config.js, written by scripts/build.js on Vercel). */
+  var ENV = global.SMIVAI_ENV || {};
   S.CONFIG = S.CONFIG || {
-    apiBase: null,             // e.g. 'http://localhost:8000' to use FastAPI
+    apiBase: (ENV.FULL_SERVER_MODE && ENV.API_BASE_URL) || null,   // every role through the server
     autoSyncMs: 20000,
     simulatedLatencyMs: 900
   };
@@ -36,7 +38,7 @@
      automatically on a local development address (localhost:8000) or set
      here for a deployed server.
      ------------------------------------------------------------ */
-  S.CONFIG.serverBase = S.CONFIG.serverBase || null;
+  S.CONFIG.serverBase = S.CONFIG.serverBase || ENV.API_BASE_URL || null;
   var SERVER_ONLY = { donor: 1, admin: 1, charity_partner: 1 };
   var probe = null;
   S.Server = {
