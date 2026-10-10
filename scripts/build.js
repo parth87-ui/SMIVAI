@@ -40,9 +40,20 @@ function build(env) {
   return js;
 }
 
+/* On Vercel, a build without the API address would deploy a site that never
+   calls the server. Vercel scopes variables per environment (Production,
+   Preview, Development), so say which one is missing and stop. */
+function check(env) {
+  if (env.VERCEL === '1' && !apiBase(env.SMIVAI_API_BASE_URL)) {
+    throw new Error('SMIVAI_API_BASE_URL is not set for the Vercel "' + (env.VERCEL_ENV || 'unknown') +
+      '" environment. Add it in Project Settings → Environment Variables for that environment, then redeploy.');
+  }
+}
+
 if (require.main === module) {
+  check(process.env);
   const js = build(process.env);
-  console.log('[smivai] built public/ —', js.split('\n')[1]);
+  console.log('[smivai] built public/ (' + (process.env.VERCEL_ENV || 'local') + ') —', js.split('\n')[1]);
   if (!/API_BASE_URL":"http/.test(js)) console.warn('[smivai] SMIVAI_API_BASE_URL is not set: donor and staff sign-in will say the server is not connected.');
 }
-module.exports = { apiBase, configJs };
+module.exports = { apiBase, configJs, check };

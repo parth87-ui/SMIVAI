@@ -39,3 +39,10 @@ test('full server mode sends every role to the server', () => {
   const S = loadWith({ API_BASE_URL: 'https://x.onrender.com', FULL_SERVER_MODE: true });
   assert.strictEqual(S.Server.base('patient'), 'https://x.onrender.com');
 });
+
+test('a Vercel build without the API address fails and names the environment', () => {
+  const { check } = require('../../scripts/build.js');
+  assert.throws(() => check({ VERCEL: '1', VERCEL_ENV: 'preview' }), /not set for the Vercel "preview" environment/);
+  assert.doesNotThrow(() => check({ VERCEL: '1', VERCEL_ENV: 'preview', SMIVAI_API_BASE_URL: 'https://smivai.onrender.com' }));
+  assert.doesNotThrow(() => check({}));            // local builds stay permissive
+});
